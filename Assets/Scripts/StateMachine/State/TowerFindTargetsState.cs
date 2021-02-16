@@ -25,8 +25,5 @@ public class TowerFindTargetsState : State
         var newTarget = Targets.GetTarget();
         _currentTarget = newTarget;
         TargetFound?.Invoke(newTarget);
-
-        //newTarget.Lost += OnTargetLost;
-        //SetTarget(newTarget);
     }
 }

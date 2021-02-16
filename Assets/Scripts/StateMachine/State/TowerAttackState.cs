@@ -21,9 +21,16 @@ public class TowerAttackState : State
 
     private void OnEnable()
     {
-        Target.Lost += OnTargetLost;
-        _timeBetweenAttacks = _attackDelay / 2;
-        _currentTarget = Target;
+        if (Target != null)
+        {
+            Target.Lost += OnTargetLost;
+            _timeBetweenAttacks = _attackDelay / 2;
+            _currentTarget = Target;
+        }
+        else
+        {
+            TargetLost?.Invoke();
+        }
     }
 
     private void FixedUpdate()
@@ -40,7 +47,7 @@ public class TowerAttackState : State
         {
             _timeBetweenAttacks = 0;
 
-            if (Target != null && FireDistance())
+            if (FireDistance())
             {
                 Attack();
             }
@@ -50,33 +57,27 @@ public class TowerAttackState : State
     private void Attack()
     {
         var bullet = Instantiate(_bulletTemplate, transform.position, Quaternion.identity);
-        if (Target != null)
-        {
-            bullet.Init(Target);
-        }
+        bullet.Init(Target);
     }
 
     private bool FireDistance()
     {
-        if (Target != null)
-        {
-            _distanceToTarget = Vector3.Distance(transform.position, Target.Transform.position);
+        _distanceToTarget = Vector3.Distance(transform.position, Target.Transform.position);
 
-            if (_distanceToTarget <= _fireDistance)
-            {
-                return true;
-            }
-            else
-            {
-                TargetLost?.Invoke();
-                return false;
-            }
+        if (_distanceToTarget <= _fireDistance)
+        {
+            return true;
         }
-        return false;
+        else
+        {
+            TargetLost?.Invoke();
+            return false;
+        }
     }
 
     public void OnTargetLost(Enemy enemy)
     {
+        enemy.Lost -= OnTargetLost;
         SetTarget(null);
         ResetTarget();
         TargetLost?.Invoke();

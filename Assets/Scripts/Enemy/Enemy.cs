@@ -26,9 +26,8 @@ public class Enemy : MonoBehaviour, ITargetable
     {
         _health.TakeDamage(damage);
 
-        if(_health.HealthPoints <= 0)
+        if (_health.HealthPoints <= 0)
         {
-            Debug.Log("I Died");
             Lost?.Invoke(this);
         }
     }

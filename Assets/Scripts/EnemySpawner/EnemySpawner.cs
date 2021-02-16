@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
         _currentWave = _waves[_currentWaveIndex];
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_currentWave == null)
         {

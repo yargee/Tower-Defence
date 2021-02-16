@@ -9,7 +9,7 @@ public class EnemyMoveState : State
     private Transform[] _route;
     private int _wayPointIndex;
 
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }

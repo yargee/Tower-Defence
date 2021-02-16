@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, _target.Transform.position, _speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _target.Transform.position, _speed);
         }
     }
 

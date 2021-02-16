@@ -12,11 +12,5 @@ public class TargetFoundTransition : Transition
     {
         NextState.SetTarget(enemy);
         SetTransit();
-
-        //if (CurrentState.Target != null && NextState.Target == null)
-        //  {
-        //CurrentState.Target.Lost += CurrentState.OnTargetLost;
-
-        //  }
     }
 }
